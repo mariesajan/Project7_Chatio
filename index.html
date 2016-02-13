@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <title>ChatIO</title>
+    <head>
+        <style>
+            .container{
+                margin-left:400px;
+                width:32%;
+                padding:5px;
+            }
+            #namesWrapper{
+
+                background: #edeadc;
+                border:1px solid #ccc;
+                padding: 10px;
+            }
+            #chatWrapper{
+                display:none;
+            }
+            #chatMsgSent{
+                background: #edeadc;
+                border:1px solid #edeadc;
+                height: 150px;
+            }
+            #chatWindow{
+                background: #edeadc;
+                border:1px solid #ccc;
+                padding:10px;
+                margin-bottom:10px;
+            }
+            input.text{
+                width:300px;
+            }
+            #usersWrapper{
+                max-height:200px;
+            }
+            #users{
+
+                padding:10px;
+                border:1px solid #ccc;
+                background: #edeadc;
+                width:50px;
+                max-height:200px;
+            }
+        </style>
+        <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+        <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+        <script>
+            $('document').ready(function(){
+              var socket = io();
+
+              $("#userSubmit").click(function(){
+
+                  if ($("#username").val()== ""){
+                      $("#error").html("<p>Please enter the username</p>")
+                  }
+                else{
+                    socket.emit('new user',$("#username").val(),function(data){
+                        if(data){
+                            $("#chatWrapper").show();
+                            $("#namesWrapper").hide();
+
+                        }
+                    });
+                }
+              });
+
+
+              socket.on('error found',function(error){
+                  $("#error").html("<p>"+error.msg+"</p>");
+              });
+
+              $("#saySubmit").click(function(){
+                  if($("#chatMessage").val()){
+                      socket.emit('chat message',{
+                        msg: $("#chatMessage").val(),
+                        uname:$("#username").val()
+                      });
+
+                      $("#chatMessage").val('');
+                  }
+              });
+
+              socket.on('chat message',function(data){
+                  $("#chatMsgSent").append(data.uname+":"+data.msg+"<br>");
+              });
+
+              socket.on('username',function(data){
+                  var html='';
+
+                  for(var i=0;i<data.length;i++){
+                    html+=data[i]+"<br>";
+                  }
+                    $("#users").html(html);
+              });
+          });
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div  id="namesWrapper">
+                <h2>ChatIO</h2>
+                <p>Create Username:</p>
+                <input  type="text" id="username" />
+                <input id="userSubmit" class="button" type="submit" value="Submit" />
+                <div id="error"></div>
+            </div>
+            <div id="chatWrapper">
+                <h2>ChatIO</h2>
+                <div id="chatWindow">
+                    <div id="chatMsgSent"> </div>
+                    <div id="chatMsg">
+                        <input class="text" type="text" id="chatMessage" placeholder="Type Something..." />
+                        <input id="saySubmit" class="button" type="submit" value="Say It!!" />
+                    </div>
+                </div>
+                <div id="userWrapper">
+                    <div id="users">    </div>
+                </div>
+            <div>
+        </div>
+    </body>
+</html>
