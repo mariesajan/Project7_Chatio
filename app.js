@@ -1,15 +1,18 @@
-var app = require('express')(),
+var express = require('express'),
+    app = express(),
+    path = require('path'),
     server = require('http').Server(app),
     io = require('socket.io')(server),
     usernames = [];
 
+app.use('/js',express.static(path.join(__dirname,'public/js')));
 
 server.listen((process.env.PORT || 3000), function() {
     console.log('server is listening to 3000.......');
 });
 
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/public/views/index.html');
 });
 
 io.on('connection', function(socket) {
