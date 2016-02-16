@@ -11,8 +11,9 @@
               if(data){
                   $("#chatWrapper").show();
                   $("#namesWrapper").hide();
-
+                  $("#chatMessage").focus();
               }
+
           });
       }
     });
@@ -22,7 +23,7 @@
         $("#error").html("<p>"+error.msg+"</p>");
     });
 
-    $("#saySubmit").click(function(){
+    $("#saySubmit").on('click',function(){
         if($("#chatMessage").val()){
             socket.emit('chat message',{
               msg: $("#chatMessage").val(),
@@ -30,7 +31,16 @@
             });
 
             $("#chatMessage").val('');
+            $("#chatMessage").focus();
         }
+    });
+
+    $("#chatMessage").keypress(function(e){
+      var key =  e.which;
+      // if enter key is pressed
+      if(key == 13){
+        $("#saySubmit").click();
+      }
     });
 
     socket.on('chat message',function(data){

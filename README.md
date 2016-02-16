@@ -10,6 +10,9 @@ To use this, first the developer has to install the dependencies by running the 
 
 After that, they can start using it by invoking the website in port no: 3000.
 
+This ChatIO app is hosted in Heroku 
+[ChatIO App Link](https://limitless-retreat-23952.herokuapp.com/)
+
 _Issues to be fixed_
 
 *   Ideally, no two same usernames should be accepted. But the issue is, if the usernames are with different cases, they are getting accepted which needs to be fixed.
