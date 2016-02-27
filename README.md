@@ -1,18 +1,20 @@
 ## ChatIO
 
-This is a website which allows different users for interactive messaging. Here after invoking the website, the user has to enter a username to join the chat room for communicating with each other.
- All the usernames joined in the chatroom will be displayed in a box below the chat window.
+This app allows users to communicate via messages. The participant has to enter a username to join the chat room.
 
-When the user closes the browser, the particular user will be disconnected from the chatroom and will not get the messages sent be the other users after it.
+When the user exits from the chatroom or close the browser window, he will be disconnected from the session and will not get any further messages.
 
-To use this, first the developer has to install the dependencies by running the command:
->  npm install
+### Installation
+Install the dependencies:
 
-After that, they can start using it by invoking the website in port no: 3000.
+    npm install
 
-This ChatIO app is hosted in Heroku 
-[ChatIO App Link](https://limitless-retreat-23952.herokuapp.com/)
+Start the application by pointing your browser to http://locahost:3000
 
-_Issues to be fixed_
+### Demo
 
-*   Ideally, no two same usernames should be accepted. But the issue is, if the usernames are with different cases, they are getting accepted which needs to be fixed.
+Hosted on Heroku [here](https://limitless-retreat-23952.herokuapp.com/)
+
+#### TODO
+
+* Handle username collision
