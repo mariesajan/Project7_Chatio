@@ -1,5 +1,7 @@
 ## ChatIO
 
+An example project done as part of learning **node.js, socket.io** and **heroku**
+
 This app allows users to communicate via messages. The participant has to enter a username to join the chat room.
 
 When the user exits from the chatroom or close the browser window, he will be disconnected from the session and will not get any further messages.
